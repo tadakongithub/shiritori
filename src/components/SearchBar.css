@@ -1,0 +1,31 @@
+.container{
+    margin-top: 50px;
+}
+
+.start{
+    font-size: 30px;
+}
+
+.winner{
+    display: none;
+    font-size: 30px;
+    margin-top: 50px;
+}
+
+.block{
+    display: block;
+}
+
+.current{
+    display: block;
+}
+
+.none{
+    display: none;
+}
+
+.clock{
+    text-align: center;
+    font-size: 50px;
+    margin-top: 50px;
+}
