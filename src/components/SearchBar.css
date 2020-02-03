@@ -2,6 +2,10 @@
     margin-top: 50px;
 }
 
+#search-bar{
+    width: 350px;
+}
+
 .start{
     font-size: 30px;
 }
