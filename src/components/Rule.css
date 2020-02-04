@@ -6,6 +6,16 @@
     justify-content: center;
 }
 
+.rule-box{
+    width: 480px;
+}
+
+@media screen and (max-width: 480px){
+    .rule-box{
+        width: 100%;
+    }
+}
+
 .rule-box h3{
     text-align: center;
 }

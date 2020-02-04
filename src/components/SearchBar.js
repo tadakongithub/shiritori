@@ -1,8 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import StartWith from './StartWith';
+import CharacterShort from './CharacterShort';
 import Result from './Result';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import './SearchBar.css';
+
+import 'react-circular-progressbar/dist/styles.css';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 
 class SearchBar extends React.Component {
@@ -16,7 +21,7 @@ class SearchBar extends React.Component {
             firstTime : true,
             wasUsed : false,
             wrongStart : false,
-            inDictionary : null,
+            inDictionary : true,
             lastCharacter : undefined,
             used : []
         };
@@ -24,6 +29,7 @@ class SearchBar extends React.Component {
         this.onButtonSubmit = this.onButtonSubmit.bind(this);
     }
 
+    
     componentDidMount(){
         this.timeId = setInterval(
             () => {
@@ -32,6 +38,7 @@ class SearchBar extends React.Component {
                 } 
             },1000);
     }
+    
 
     handleChange = (event) => {
         let value = event.target.value;
@@ -88,6 +95,7 @@ class SearchBar extends React.Component {
                     );
                 } else {
                     this.setState({inDictionary : false});
+                    
                     this.timeId = setInterval(
                         () => {
                             if(this.state.clock > 0){
@@ -109,22 +117,40 @@ class SearchBar extends React.Component {
 
     render(){
         return(
-            <div className="ui container" id="search-bar">
-                <StartWith startCharacter={this.state.lastCharacter} firstTime={this.state.firstTime} />
-                <div>{this.props.minimalLength - this.state.word.length} characters short</div>
-                <form className="ui form" onSubmit={this.onButtonSubmit}>
-                    <div className="field">
-                        <input type="text" name="word" readOnly={this.state.ended}
-                        onChange={this.handleChange}
-                        style={{borderColor : (this.state.wasUsed||this.state.wrongStart||this.state.word.length<this.props.minimalLength?'#fc4538':'#38ff84')}}
-                        value={this.state.word} />
+            <div className="search-flex">
+                <div className="search-box">
+                    <div className="incorrect-word">
+                        <StartWith lastCharacter={this.state.lastCharacter} firstTime={this.state.firstTime} 
+                        firstCharacter={this.state.word.charAt(0)} className="incorrect-each" />
+                        <CharacterShort minimalLength={this.props.minimalLength} wordLength={this.state.word.length} 
+                        className="incorrect-each"/>
+                        <ProgressBar className="incorrect-each"
+                        now={this.state.word.length<=this.props.minimalLength?this.state.word.length/this.props.minimalLength*100:100} />
+                        <div className="incorrect-each" style={{color: '#f0ad4e'}}>{this.state.wasUsed?"Already used once":null}</div>
                     </div>
-                    <button className="ui button" type="submit" 
-                    disabled={this.state.wasUsed||this.state.wrongStart||this.state.word.length<this.props.minimalLength}>Submit</button>
-                </form>
-                <Result firstTime={this.state.firstTime} inDictionary={this.state.inDictionary} />
-                <div className="clock">{this.state.clock}</div>
+                    <form className="ui form" onSubmit={this.onButtonSubmit}>
+                        <div className="field">
+                            <input type="text" name="word" readOnly={this.state.ended}
+                            onChange={this.handleChange}
+                            style={{borderColor : (this.state.wasUsed||this.state.wrongStart||this.state.word.length<this.props.minimalLength?'#f0ad4e':'#38ff84')}}
+                            value={this.state.word} />
+                        </div>
+                        <button className="ui button" type="submit" id="search-button"
+                        disabled={this.state.wasUsed||this.state.wrongStart||this.state.word.length<this.props.minimalLength}>Submit</button>
+                    </form>
+                    <Result firstTime={this.state.firstTime} inDictionary={this.state.inDictionary} />
+                    <CircularProgressbar
+                        value={(this.props.timeLimit-this.state.clock)/this.props.timeLimit*100}
+                        text={this.state.clock}
+                        className="circle"
+                        styles={buildStyles({
+                            textColor: "#000",
+                            pathColor: "#0275d8"
+                          })}
+                    />
+                </div>
             </div>
+            
         );
     }
 

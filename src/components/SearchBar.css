@@ -1,35 +1,40 @@
-.container{
-    margin-top: 50px;
+.search-flex{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#search-bar{
-    width: 350px;
+.search-box{
+    width: 480px;
 }
 
-.start{
-    font-size: 30px;
+@media screen and (max-width: 480px){
+    .search-box{
+        width: 100%;
+    }
 }
 
-.winner{
-    display: none;
-    font-size: 30px;
-    margin-top: 50px;
-}
-
-.block{
-    display: block;
-}
-
-.current{
-    display: block;
-}
-
-.none{
-    display: none;
-}
-
-.clock{
+.incorrect-word{
+    margin-bottom: 50px;
     text-align: center;
-    font-size: 50px;
+}
+
+.incorrect-each{
+    margin-bottom: 15px;
+}
+
+#search-button{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #0275d8;
+    color: #fff;
+}
+
+.circle{
     margin-top: 50px;
+    width: 150px;
+    height: 150px;
 }

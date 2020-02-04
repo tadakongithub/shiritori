@@ -31,18 +31,19 @@ class Rule extends React.Component {
                 <div className="rule-box">
                     <h3>Rule</h3>
                     <div>You have to type a word that starts with the last character of the previous word.</div>
-                    <h3>Set the Difficulty</h3>
-                    <form id="settingGame" onSubmit={this.onFormSubmit}>
-                        <label>
-                            Time Limit:
-                            <input name="timeLimit" value={this.state.timeLimit} type="text" onChange={this.handleChange} />
-                        </label>
-                        <label>
-                            Minimal Length of the word:
-                            <input name="minimalLength" value={this.state.minimalLength} type="text" onChange={this.handleChange} />
-                        </label>
+                    <h3>Difficulty</h3>
+                    <form id="settingGame" className="ui form" onSubmit={this.onFormSubmit}>
+                        <div className="field">
+                            <label>Time Limit:</label>
+                            <input name="timeLimit" value={this.state.timeLimit} type="text" onChange={this.handleChange} required/>
+                        </div>
+                        <div className="field">
+                            <label>Minimal Length:</label>
+                            <input name="minimalLength" value={this.state.minimalLength} type="text" onChange={this.handleChange} required/>
+                        </div>
+                        <button type="submit" form="settingGame" className="ui pink button" id="start-button">Start</button>
                     </form>
-                    <button type="submit" form="settingGame" className="ui pink button" id="start-button">Start</button>
+                    
                 </div>
             </div>
         )
