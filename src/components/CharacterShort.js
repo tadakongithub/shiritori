@@ -1,4 +1,5 @@
 import React from 'react';
+import './CharacterShort.css'
 
 class CharacterShort extends React.Component {
 
@@ -7,9 +8,9 @@ class CharacterShort extends React.Component {
         let characterShort = this.props.minimalLength - this.props.wordLength;
 
         if(characterShort > 0) {
-            return <div>Word Length : <span style={{color: '#f0ad4e'}}>{characterShort} more characters</span></div>
+            return <div>Word Length : <span style={{color: '#FF1493'}}>{characterShort} more characters</span></div>
         } else {
-            return <div>Word Length : <i class="thumbs up green icon"></i></div>
+            return <div>Word Length : <i class="thumbs up icon" id="thumbup"></i></div>
         }
 
     }

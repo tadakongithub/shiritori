@@ -5,7 +5,6 @@ import CharacterShort from './CharacterShort';
 import Result from './Result';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import './SearchBar.css';
-
 import 'react-circular-progressbar/dist/styles.css';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
@@ -126,13 +125,13 @@ class SearchBar extends React.Component {
                         className="incorrect-each"/>
                         <ProgressBar className="incorrect-each"
                         now={this.state.word.length<=this.props.minimalLength?this.state.word.length/this.props.minimalLength*100:100} />
-                        <div className="incorrect-each" style={{color: '#f0ad4e'}}>{this.state.wasUsed?"Already used once":null}</div>
+                        <div className="incorrect-each" style={{color: '#FF1493'}}>{this.state.wasUsed?"Already used once":null}</div>
                     </div>
                     <form className="ui form" onSubmit={this.onButtonSubmit}>
                         <div className="field">
                             <input type="text" name="word" readOnly={this.state.ended}
                             onChange={this.handleChange}
-                            style={{borderColor : (this.state.wasUsed||this.state.wrongStart||this.state.word.length<this.props.minimalLength?'#f0ad4e':'#38ff84')}}
+                            style={{borderColor : (this.state.wasUsed||this.state.wrongStart||this.state.word.length<this.props.minimalLength?'#FF1493':'#0ee3eb')}}
                             value={this.state.word} />
                         </div>
                         <button className="ui button" type="submit" id="search-button"
@@ -145,7 +144,7 @@ class SearchBar extends React.Component {
                         className="circle"
                         styles={buildStyles({
                             textColor: "#000",
-                            pathColor: "#0275d8"
+                            pathColor: "rgb(255, 20, 145)"
                           })}
                     />
                 </div>
