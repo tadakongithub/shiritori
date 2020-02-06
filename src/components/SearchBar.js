@@ -4,9 +4,10 @@ import StartWith from './StartWith';
 import CharacterShort from './CharacterShort';
 import Result from './Result';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import './SearchBar.css';
+
 import 'react-circular-progressbar/dist/styles.css';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import './SearchBar.css';
 
 
 class SearchBar extends React.Component {
