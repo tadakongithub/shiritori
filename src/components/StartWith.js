@@ -9,7 +9,7 @@ class StartWith extends React.Component {
             return <div>Start with &nbsp;     
                 <span style={{
                     fontSize: '30px',
-                    color: (this.props.firstCharacter===this.props.lastCharacter?"#0275d8":"#FF1493")}}>{this.props.lastCharacter}</span>
+                    color: (this.props.firstCharacter===this.props.lastCharacter?"#008080":"#FF1493")}}>{this.props.lastCharacter}</span>
                 </div>
         }
     }

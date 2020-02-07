@@ -3,8 +3,8 @@ import axios from 'axios';
 import StartWith from './StartWith';
 import CharacterShort from './CharacterShort';
 import Result from './Result';
+import { Progress } from 'semantic-ui-react'
 import ProgressBar from 'react-bootstrap/ProgressBar';
-
 import 'react-circular-progressbar/dist/styles.css';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import './SearchBar.css';
@@ -124,8 +124,9 @@ class SearchBar extends React.Component {
                         firstCharacter={this.state.word.charAt(0)} className="incorrect-each" />
                         <CharacterShort minimalLength={this.props.minimalLength} wordLength={this.state.word.length} 
                         className="incorrect-each"/>
-                        <ProgressBar className="incorrect-each"
-                        now={this.state.word.length<=this.props.minimalLength?this.state.word.length/this.props.minimalLength*100:100} />
+                        <Progress 
+                        percent={this.state.word.length<=this.props.minimalLength?this.state.word.length/this.props.minimalLength*100:100}
+                        color='teal' />
                         <div className="incorrect-each" style={{color: '#FF1493'}}>{this.state.wasUsed?"Already used once":null}</div>
                     </div>
                     <form className="ui form" onSubmit={this.onButtonSubmit}>
@@ -135,7 +136,7 @@ class SearchBar extends React.Component {
                             style={{borderColor : (this.state.wasUsed||this.state.wrongStart||this.state.word.length<this.props.minimalLength?'#FF1493':'#0ee3eb')}}
                             value={this.state.word} />
                         </div>
-                        <button className="ui button" type="submit" id="search-button"
+                        <button className="ui teal button" type="submit" id="search-button"
                         disabled={this.state.wasUsed||this.state.wrongStart||this.state.word.length<this.props.minimalLength}>Submit</button>
                     </form>
                     <Result firstTime={this.state.firstTime} inDictionary={this.state.inDictionary} />

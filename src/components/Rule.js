@@ -1,13 +1,14 @@
 import React from 'react';
 import './Rule.css';
 
+
 class Rule extends React.Component {
 
     constructor(props) {
         super(props);
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.state = {timeLimit: '', minimalLength: ''};
+        this.state = {timeLimit: '5', minimalLength: '3'};
     }
 
     onFormSubmit (e) {
@@ -34,13 +35,28 @@ class Rule extends React.Component {
                     <h3>Difficulty</h3>
                     <form id="settingGame" className="ui form" onSubmit={this.onFormSubmit}>
                         <div className="field">
-                            <label>Time Limit:</label>
-                            <input name="timeLimit" value={this.state.timeLimit} type="text" onChange={this.handleChange} required/>
-                        </div>
+                            <label>Time limit in seconds</label>
+                            <select className="ui dropdown"  name="timeLimit" onChange={this.handleChange} required>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                            </select>    
+                        </div> 
+                            
                         <div className="field">
-                            <label>Minimal Length:</label>
-                            <input name="minimalLength" value={this.state.minimalLength} type="text" onChange={this.handleChange} required/>
+                            <label>Minimal length of the word (How many characters)</label>
+                            <select className="ui dropdown" name="minimalLength" value={this.state.minimalLength} onChange={this.handleChange} required>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
                         </div>
+
                         <button type="submit" form="settingGame" className="ui pink button" id="start-button">Start</button>
                     </form>
                     
