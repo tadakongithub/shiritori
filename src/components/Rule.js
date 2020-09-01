@@ -36,7 +36,7 @@ class Rule extends React.Component {
                     <form id="settingGame" className="ui form" onSubmit={this.onFormSubmit}>
                         <div className="field">
                             <label>Time limit in seconds</label>
-                            <select className="ui dropdown"  name="timeLimit" onChange={this.handleChange} required>
+                            <select className="ui dropdown"  name="timeLimit" value={this.state.timeLimit} onChange={this.handleChange} required>
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>

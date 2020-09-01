@@ -4,7 +4,6 @@ import StartWith from './StartWith';
 import CharacterShort from './CharacterShort';
 import Result from './Result';
 import { Progress } from 'semantic-ui-react'
-import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'react-circular-progressbar/dist/styles.css';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import './SearchBar.css';
@@ -29,17 +28,17 @@ class SearchBar extends React.Component {
         this.onButtonSubmit = this.onButtonSubmit.bind(this);
     }
 
-    
     componentDidMount(){
         this.timeId = setInterval(
             () => {
                 if(this.state.clock > 0){
                     this.setState({clock : this.state.clock - 1});
                 } 
-            },1000);
+            },
+            1000
+        );
     }
     
-
     handleChange = (event) => {
         let value = event.target.value;
         let firstCharacter = value.charAt(0);
@@ -58,10 +57,11 @@ class SearchBar extends React.Component {
         }   
     }
 
-    onButtonSubmit = (event) => {
+    onButtonSubmit = async (event) => {
         event.preventDefault();
-            clearInterval(this.timeId);
-            axios.get("https://lingua-robot.p.rapidapi.com/language/v1/entries/en/"+this.state.word, 
+        clearInterval(this.timeId);
+        await axios.get(
+            `https://lingua-robot.p.rapidapi.com/language/v1/entries/en/${this.state.word}`, 
             {headers : 
                 {
                     "x-rapidapi-host": "lingua-robot.p.rapidapi.com",
@@ -85,27 +85,19 @@ class SearchBar extends React.Component {
                             this.setState({inDictionary : false});
                         }
                     }
-                    this.timeId = setInterval(
-                        () => {
-                            if(this.state.clock > 0){
-                                this.setState({clock : this.state.clock - 1});
-                            } 
-                        },
-                        1000
-                    );
                 } else {
                     this.setState({inDictionary : false});
-                    
-                    this.timeId = setInterval(
-                        () => {
-                            if(this.state.clock > 0){
-                                this.setState({clock : this.state.clock - 1});
-                            } 
-                        },
-                        1000
-                    );
                 }
+                this.timeId = setInterval(
+                    () => {
+                        if(this.state.clock > 0){
+                            this.setState({clock : this.state.clock - 1});
+                        } 
+                    },
+                    1000
+                );
             });
+                
     }
 
     componentDidUpdate(){
@@ -125,10 +117,11 @@ class SearchBar extends React.Component {
                         <CharacterShort minimalLength={this.props.minimalLength} wordLength={this.state.word.length} 
                         className="incorrect-each"/>
                         <Progress 
-                        percent={this.state.word.length<=this.props.minimalLength?this.state.word.length/this.props.minimalLength*100:100}
+                        percent={this.state.word.length<this.props.minimalLength?this.state.word.length/this.props.minimalLength*100:100}
                         color='teal' />
                         <div className="incorrect-each" style={{color: '#FF1493'}}>{this.state.wasUsed?"Already used once":null}</div>
                     </div>
+
                     <form className="ui form" onSubmit={this.onButtonSubmit}>
                         <div className="field">
                             <input type="text" name="word" readOnly={this.state.ended}
@@ -139,6 +132,7 @@ class SearchBar extends React.Component {
                         <button className="ui teal button" type="submit" id="search-button"
                         disabled={this.state.wasUsed||this.state.wrongStart||this.state.word.length<this.props.minimalLength}>Submit</button>
                     </form>
+
                     <Result firstTime={this.state.firstTime} inDictionary={this.state.inDictionary} />
                     <CircularProgressbar
                         value={(this.props.timeLimit-this.state.clock)/this.props.timeLimit*100}
